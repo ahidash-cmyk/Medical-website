@@ -1,24 +1,26 @@
-import { useState, useEffect, } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { Menu, X } from "lucide-react";
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 800);
+      setScrolled(window.scrollY > 100);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const closeMenu = () => setIsOpen(false);
+
   return (
     <nav
-      className={`fixed w-full top-0 left-0 z-50 transition duration-300 ${
-        scrolled
-          ? "bg-white shadow-md"
-          : "bg-transparent"
+      className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
@@ -28,51 +30,63 @@ const Navbar = () => {
           SmileCare
         </h1>
 
-        {/* Links */}
-        <ul className="hidden md:flex gap-8 font-medium">
-          <li className="cursor-pointer hover:text-blue-500 transition"><Link to="/">Home</Link></li>
-          <li className="cursor-pointer hover:text-blue-500 transition"><Link to="/about">About</Link></li>
-          <li className="cursor-pointer hover:text-blue-500 transition"><Link to="/services">Services</Link></li>
-          <li className="cursor-pointer hover:text-blue-500 transition"><Link to="/Doctors">Doctors</Link></li>
-          <li className="cursor-pointer hover:text-blue-500 transition"><Link to="/contact">Contact</Link></li>
+        {/* Desktop Links */}
+        <ul className="hidden lg:flex gap-8 font-medium">
+          <li><Link to="/" className="hover:text-blue-500">Home</Link></li>
+          <li><Link to="/about" className="hover:text-blue-500">About</Link></li>
+          <li><Link to="/services" className="hover:text-blue-500">Services</Link></li>
+          <li><Link to="/doctors" className="hover:text-blue-500">Doctors</Link></li>
+          <li><Link to="/contact" className="hover:text-blue-500">Contact</Link></li>
         </ul>
-         <button
-            className="lg:hidden transform hover:scale-125 transition-transform duration-300 hover:bg-white/10 p-2 rounded-md"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
-        </div>
-        {/* Mobile Menu */}
-        {isOpen && (
-          <ul className="lg:hidden flex flex-col items-center gap-6 pb-6 text-lg">
-       <li>
-              <Link
-                to="/"
-                className="hover:text-blue-500 cursor-pointer text-lg">
+
+        {/* Mobile Button */}
+        <button
+          className="lg:hidden p-2 rounded-md"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="lg:hidden absolute top-16 left-0 w-full bg-white shadow-md">
+          <ul className="flex flex-col items-center gap-6 py-6 text-lg">
+
+            <li>
+              <Link to="/" onClick={closeMenu} className="hover:text-blue-500">
                 Home
               </Link>
             </li>
+
             <li>
-              <Link
-                to="About"
-                className="hover:text-blue-500 cursor-pointer text-lg">
+              <Link to="/about" onClick={closeMenu} className="hover:text-blue-500">
                 About
               </Link>
             </li>
+
             <li>
-              <Link
-                to="/contact"
-                className="hover:text-blue-500 cursor-pointer text-lg"
-              >
+              <Link to="/services" onClick={closeMenu} className="hover:text-blue-500">
+                Services
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/doctors" onClick={closeMenu} className="hover:text-blue-500">
+                Doctors
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/contact" onClick={closeMenu} className="hover:text-blue-500">
                 Contact
               </Link>
             </li>
+
           </ul>
-        )}
-      </nav>
-       
-    
+        </div>
+      )}
+    </nav>
   );
 };
 
