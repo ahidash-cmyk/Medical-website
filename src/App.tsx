@@ -7,6 +7,7 @@ import Services from "./pages/Services";
 import DoctorsSection from "./pages/Doctors";
 import  Contact  from "./pages/Contact";
 
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
@@ -15,6 +16,7 @@ const router = createBrowserRouter(
       <Route path="Services" element={<Services />} />
       <Route path="Doctors" element={<DoctorsSection />} />
       <Route path="contact" element={<Contact />} />
+      <Route path="*" element={<Home/>} />
     </Route>
   )
 );
