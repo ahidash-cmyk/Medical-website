@@ -68,7 +68,7 @@ const Home = () => {
 
           <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
             <div className="p-6 bg-white rounded-xl shadow">
-              <p className="mb-3">"شكرا على سرعة الخدمة "</p>
+              <p className="mb-3">"!شكرا على سرعة الخدمة "</p>
               <span className="font-semibold">- أحمد</span>
             </div>
 
